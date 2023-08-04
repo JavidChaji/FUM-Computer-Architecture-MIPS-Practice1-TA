@@ -1,0 +1,82 @@
+.data
+prompt1: .asciiz "Enter the first number: "
+prompt2: .asciiz "Enter the second number: "
+output: .asciiz "Fibonacci sequence: "
+comma: .asciiz ", "
+newline: .asciiz "\n"
+.text
+.globl main
+
+main:
+# prompt the user to enter the first number
+li $v0, 4
+la $a0, prompt1
+syscall
+
+# read the first number
+li $v0, 5
+syscall
+move $t0, $v0
+
+# prompt the user to enter the second number
+li $v0, 4
+la $a0, prompt2
+syscall
+
+# read the second number
+li $v0, 5
+syscall
+move $t1, $v0
+
+# initialize the Fibonacci sequence
+addi $t2, $zero, 1
+addi $t3, $zero, 1
+
+# print out the header for the sequence
+li $v0, 4
+la $a0, output
+syscall
+
+# print out the Fibonacci sequence between the two numbers
+Loop:
+    # check if we've gone past the second number
+    bgt $t2, $t1, Done
+    
+    # check if the current Fibonacci number is within range
+    bge $t2, $t0, Print
+    
+    # calculate the next Fibonacci number
+    add $t4, $t2, $t3
+    move $t2, $t3
+    move $t3, $t4
+    
+    # loop back to the start of the loop
+    j Loop
+
+Print:
+    # print out the current Fibonacci number
+    li $v0, 1
+    move $a0, $t2
+    syscall
+    
+    # print a comma and a space
+    li $v0, 4
+    la $a0, comma
+    syscall
+    
+    # calculate the next Fibonacci number
+    add $t4, $t2, $t3
+    move $t2, $t3
+    move $t3, $t4
+    
+    # loop back to the start of the loop
+    j Loop
+
+Done:
+    # print a newline character and exit
+    li $v0, 4
+    la $a0, newline
+    syscall
+    
+    li $v0, 10
+    syscall

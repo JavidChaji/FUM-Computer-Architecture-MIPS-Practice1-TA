@@ -1,0 +1,30 @@
+.data
+myArray: .word 5, 10, 15, 20, 25    # initialize an array with 5 elements
+arraySize: .word 5             # initialize a variable with 
+                               # the size of the array
+
+.text
+.globl main
+
+main:
+    la $t0, myArray       # load the base address of the array into $t0
+    lw $t1, arraySize     # load the size of the array into $t1
+    li $t2, 0             # initialize a counter variable to 0
+    li $t3, 0             # initialize a sum variable to 0
+
+loop:
+    lw $t4, ($t0)         # load the next element of the array into $t4
+    add $t2, $t2, 1       # increment the counter
+    add $t3, $t3, $t4     # add the element to the sum
+    addi $t0, $t0, 4      # increment the address to point to the next element
+    blt $t2, $t1, loop    # branch back to loop if the counter 
+                          # is less than the size of the array
+
+    div $t5, $t3, $t1     # divide the sum by the size of 
+                          # the array to get the average
+    mflo $a0              # move the result into $a0 for printing
+    li $v0, 1             # set the syscall number to 1 for printing integers
+    syscall
+
+    li $v0, 10            # set the syscall number to 10 to exit the program
+    syscall

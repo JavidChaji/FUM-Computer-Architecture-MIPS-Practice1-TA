@@ -1,0 +1,34 @@
+.data
+a: .word 1
+b: .word 0
+c: .word 0
+d: .word 1
+e: .word 1
+f: .word 1
+
+.text
+.globl main
+main:
+    # load input values from data section
+    lw $s0, a
+    lw $s1, b
+    lw $s2, c
+    lw $s3, d
+    lw $s4, e
+    lw $s5, f
+
+    # compute the expression
+    and $t0, $s0, $s1     # t0 = a AND b
+    and $t1, $s2, $s3     # t1 = c AND d
+    and $t2, $s4, $s5     # t2 = e AND f
+    xor $t3, $t0, $t1     # t3 = (a AND b) XOR (c AND d)
+    or  $t4, $t3, $t2     # t4 = (a AND b) XOR (c AND d) OR (e AND f)
+
+    # output the result to the terminal
+    addi $v0, $zero, 1    # set $v0 to 1 (for syscall 1 - print integer)
+    add  $a0, $t4, $zero  # copy t4 to a0
+    syscall
+
+    # exit the program
+    addi $v0, $zero, 10   # set $v0 to 10 (for syscall 10 - exit)
+    syscall

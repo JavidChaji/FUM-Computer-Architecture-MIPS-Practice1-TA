@@ -1,0 +1,348 @@
+
+\def \Subject {تمرین سری اول}
+\def \Course {درس معماری کامپیوتر}
+\def \Report {تمرین MIPS سری اول}
+
+\begin{center}
+\vspace{.4cm}
+{\bf {\huge \Subject}}\\
+{\bf \Large \Course}
+\vspace{.2cm}
+\end{center}
+
+
+{\bf مهلت تحویل تا: \date{1402/01/15}}    
+\hspace{\fill} 
+{\bf \Large \Report}
+\vspace{0.1cm}
+\hrule
+\vspace{0.8cm}
+
+
+\begin{itemize}
+  \item  پاسخ تمرین را به صورت یک فایل با فرمت FirstnameLastname\_StudentNumber.zip بارگذاری کنید.(مثال (MohammadMohammadi\_9XXXXXX.zip
+  \item برای انجام تمرین دیدن ویدئوی آموزش کار با syscall ها که در ویو وجود دارد توصیه می‌شود.
+  \item دقت داشته باشید که برای چاپ مقادیر در خروجی و همین طور برای گرفتن ورودی از کاربر باید با syscall ها آشنا باشید.
+  \item کامنت گذاری تمام خطوط کد الزامی است.
+  \item دقت کنید برای نوشتن برنامه های مورد نظر فقط باید از دستورات مجاز برای همان برنامه استفاده کنید.
+  \item تحویل تکلیف بعد از مهلت مشخص شده نمره ای نخواهد داشت.
+  \item در صورت اثبات کپی برداری، نمره تکالیف کپی شده و کپی شونده هر دو از ۱۰۰ نمره ۱۰۰- خواهد بود.
+  \item زمانبندی تحویل آنلاین تمرین پس از اتمام مهلت ارسال اعلام خواهد شد.
+  \item تحویل تمرینات از طریق تلگرام، ایمیل و ... امکان پذیر نیست.
+\end{itemize}
+
+\section{نامساوی مثلث}
+{به زبان MIPS Assembly کدی بنویسید که نامساوی مثلث را برای اندازه های دلخواه بررسی کند و با چاپ خروجی مناسب ما را از امکان ساخت مثلثی با آن اضلاع مطلع سازد.}\\
+\bf {نکات :}
+\normalfont
+\begin{enumerate}
+    \item {ورودی که همان اندازه سه ضلع مثلث است می‌بایست در قسمت داده ها در کد شما تعریف شود. \lr{(.data segment)}}
+    \item {خروجی برنامه با چاپ پیغامی مناسب در کنسول باید بگوید که این سه ضلع تشکیل یک مثلث می دهند و یا خیر}
+    \item {فرض می کنیم کاربر اعداد حسابی را می‌تواند وارد کند یعنی ورودی فقط اعداد حسابی خواهد بود.}
+\end{enumerate}
+\begin{table}[H]
+\centering
+\caption{دستورات مجاز برای استفاده در نامساوی مثلث}
+\label{tab:MIPS-Instructions-for-Inequality-of-the-Triangle}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Instruction} & \textbf{Description} & \textbf{Example} \\
+\hline
+add & Add & \lr{add \$t0, \$s0, \$s1} \\
+\hline
+la & \lr{Load Address} & \lr{la \$t, label	} \\
+\hline
+li & \lr{Load Immediate} & \lr{li \$t, imm} \\
+\hline
+% sub & Subtract & \lr{sub \$t0, \$s0, \$s1} \\
+% \hline
+and & \lr{Bitwise AND} & \lr{and \$t0, \$s0, \$s1} \\
+\hline
+% or & Bitwise OR & \lr{or \$t0, \$s0, \$s1} \\
+% \hline
+slt & \lr{Set Less Than} & \lr{slt \$t0, \$s0, \$s1} \\
+\hline
+lw & \lr{Load Word} & \lr{lw \$t0, 4(\$s0)} \\
+\hline
+sw & \lr{Store Word} & \lr{sw \$t0, 4(\$s0)} \\
+\hline
+beqz & \lr{Branch If Equal Zero} & \lr{beq \$s0, \$s1, label} \\
+\hline
+j & Jump & \lr{j label} \\
+\hline
+syscall & \lr{Triggers a System Call} & \lr{syscall} \\
+\hline
+% jr & Jump Register & \lr{jr \$s0} \\
+% \hline
+\end{tabular}
+\end{table}
+\colorbox{green}{پاسخ:}
+
+\normalfont
+{طول هر یک از ضلع‌ها در بخش .data تعریف شده است. در بخش .text برنامه ، ابتدا آدرس ضلع a به \$t0 اختصاص داده شده و سپس مقدار a در \$t0 قرار داده می‌شود. به همین ترتیب برای b و c نیز عمل می‌شود. برای بررسی عدم تساوی مثلث، با استفاده از دستور SLT، ابتدا مقدار b + c با استفاده از دستور ADD در \$t3 قرار داده شده و سپس با استفاده از دستور SLT، ارزش 1 یا 0 در \$t4 قرار می‌گیرد، به ترتیبی که اگر a < b + c ، \$t4 برابر با 1 خواهد بود و در غیر این صورت \$t4 برابر با 0 خواهد بود. در مراحل بعدی نیز برای بررسی عدم تساوی مثلث، مقادیر \$t5 و \$t6 با استفاده از دستور ADD و SLT محاسبه می‌شوند. سپس مقادیر \$t4، \$t5 و \$t6 به ترتیب با استفاده از دستور AND با هم ادغام می‌شوند تا ارزش 1 یا 0 در \$t7 قرار گیرد. اگر \$t7 برابر با 1 باشد به برچسب valid پرش می‌شود و در غیر این صورت به برچسب invalid پرش می‌شود. برچسب valid، یک رشته \lr{"The triangle is valid"} را چاپ کرده و برنامه را خاتمه می‌دهد. برچسب invalid نیز یک رشته \lr{"The triangle is invalid"} را چاپ کرده و برنامه را خاتمه می‌دهد.}
+
+\begin{latin}
+\begin{listing}[H]
+    \inputminted[linenos=true]{asm}{sources/Inequality_of_the_Triangle.mips}
+    \caption{Inequality of the Triangle}
+    \label{Inequality-of-the-Triangle}
+\end{listing}
+
+\end{latin}
+
+
+\section{دنباله فیبوناچی}
+{به زبان MIPS Assembly کدی بنویسید که دو عدد را از کاربر دریافت کند و اعضای دنباله فیبوناچی که بین این دو عدد است را چاپ کند.}\\
+\bf {نکات :}
+\normalfont
+\begin{enumerate}
+    \item {ورودی باید از طریق کنسول از کاربر گرفته شود. برای دریافت هر ورودی از کاربر از طریق کنسول باید پیغام مناسب چاپ شود.}
+    \item {فرض می‌کنیم که کاربر فقط اعداد حسابی را وارد می‌کند و عدد اولی که وارد می‌کند عدد کران پایین دامنه‌ و عدد دوم عدد کران بالای دامنه‌ی چاپ دنباله باشد.}
+    \item {خروجی برنامه باید اعضای دنباله فیبوناچی که بین دو کران داده شده‌اند هستند را به شکلی خوانا در کنسول چاپ کند.}
+\end{enumerate}
+\begin{table}[H]
+\centering
+\caption{دستورات مجاز برای استفاده در دنباله فیبوناچی}
+\label{tab:MIPS-Instructions-for-Fibonacci}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Instruction} & \textbf{Description} & \textbf{Example} \\
+\hline
+add & Add & \lr{add \$t0, \$s0, \$s1} \\
+\hline
+addi & \lr{Add With Immediate}& \lr{addi \$t0, \$s0, imm} \\
+\hline
+la & \lr{Load Address} & \lr{la \$t, label	} \\
+\hline
+li & \lr{Load Immediate} & \lr{li \$t, imm} \\
+\hline
+% sub & Subtract & \lr{sub \$t0, \$s0, \$s1} \\
+% \hline
+% and & \lr{Bitwise AND} & \lr{and \$t0, \$s0, \$s1} \\
+% \hline
+move & \lr{Move Value} & \lr{move \$t0, \$s0} \\
+\hline
+bgt & \lr{Branch on Greater Than} & \lr{bgt \$t1, \$t0, Label} \\
+\hline
+bge & \lr{Branch on Greater Than Equal} & \lr{bge \$t1, \$t0, Label} \\
+\hline
+% or & Bitwise OR & \lr{or \$t0, \$s0, \$s1} \\
+% \hline
+% slt & \lr{Set Less Than} & \lr{slt \$t0, \$s0, \$s1} \\
+% \hline
+% lw & \lr{Load Word} & \lr{lw \$t0, 4(\$s0)} \\
+% \hline
+% sw & \lr{Store Word} & \lr{sw \$t0, 4(\$s0)} \\
+% \hline
+% beqz & \lr{Branch If Equal Zero} & \lr{beq \$s0, \$s1, label} \\
+% \hline
+j & Jump & \lr{j label} \\
+\hline
+syscall & \lr{Triggers a System Call} & \lr{syscall} \\
+\hline
+% jr & Jump Register & \lr{jr \$s0} \\
+% \hline
+\end{tabular}
+\end{table}
+\colorbox{green}{پاسخ:}
+\normalfont
+
+{این کد MIPS برای محاسبه دنباله فیبوناچی بین دو عدد است. در بخش .data، چند رشته ثابت تعریف شده است که در بخش .text استفاده می شوند. رشته های prompt1 و prompt2 برای پرسیدن از کاربر عدد اول و دوم مورد استفاده قرار می گیرند. رشته output برای چاپ عنوان دنباله فیبوناچی و رشته های comma و newline برای چاپ کاما و خط جدید مورد استفاده قرار می گیرند. در بخش .text، در بخش main ابتدا از کاربر عدد اول و دوم پرسیده می شود و سپس دنباله فیبوناچی بین دو عدد محاسبه می شود. در ابتدای حلقه Loop، اگر شماره فیبوناچی کنونی بیشتر از عدد دوم باشد، حلقه بسته می شود. در صورتی که شماره فیبوناچی کنونی بین دو عدد باشد، آن را چاپ می کنیم و به شماره بعدی می رویم. در صورتی که شماره فیبوناچی کنونی کمتر از عدد دوم باشد، ما به شماره بعدی می رویم. پس از پایان حلقه، یک خط جدید چاپ می شود و برنامه خاتمه می یابد.}
+
+\begin{latin}
+
+\begin{listing}[H]
+    \inputminted[linenos=true, firstline=1, lastline=50]{asm}{sources/Fibonacci.mips}
+    \caption{Fibonacci}
+    \label{Fibonacci-1}
+\end{listing}
+
+\begin{listing}[H]
+  \inputminted[linenos=true, firstline=51, lastline=last]{asm}{sources/Fibonacci.mips}  
+    \caption{Fibonacci}
+    \label{Fibonacci-2}
+\end{listing}
+
+\end{latin}
+
+\section{محاسبه میانگین}
+{به زبان Assembly MIPS کدی بنویسید که میانگین یک آرایه را محاسبه کند.}\\
+\bf {نکات :}
+\normalfont
+\begin{enumerate}
+    \item {ورودی که شامل یک آرایه و اندازه آن است باید در قسمت داده ها در کد تعریف شود.}\\\lr{(.data segment)}
+    \item {فرض این است که اعضای آرایه و اندازه آن اعدادی حسابی اند.}
+    \item {در خروجی، برنامه باید مقدار میانگین آرایه را در کنسول چاپ کند. (مقدار میانگین نیازی به دقت اعشاری ندارد یعنی میانگین به صورت عددی صحیح چاپ می‌شود.)}
+\end{enumerate}
+\begin{table}[H]
+\centering
+\caption{دستورات مجاز برای استفاده در محاسبه میانگین}
+\label{tab:MIPS-Instructions-for-Average}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Instruction} & \textbf{Description} & \textbf{Example} \\
+\hline
+add & Add & \lr{add \$t0, \$s0, \$s1} \\
+\hline
+addi & \lr{Add With Immediate}& \lr{addi \$t0, \$s0, imm} \\
+\hline
+la & \lr{Load Address} & \lr{la \$t, label	} \\
+\hline
+li & \lr{Load Immediate} & \lr{li \$t, imm} \\
+\hline
+% sub & Subtract & \lr{sub \$t0, \$s0, \$s1} \\
+% \hline
+% and & \lr{Bitwise AND} & \lr{and \$t0, \$s0, \$s1} \\
+% \hline
+div & \lr{Divide (with overflow)} & \lr{div \$t0, \$s1, \$s0} \\
+\hline
+% move & \lr{Move Value} & \lr{move \$t0, \$s0} \\
+% \hline
+% bgt & \lr{Branch on Greater Than} & \lr{bgt \$t1, \$t0, Label} \\
+% \hline
+% bge & \lr{Branch on Greater Than Equal} & \lr{bge \$t1, \$t0, Label} \\
+% \hline
+blt & \lr{Branch on Less Than} & \lr{blt \$t1, \$t0, Label} \\
+\hline
+mflo & \lr{Move From LO of the Register} & \lr{mflo \$a0} \\
+\hline
+% or & Bitwise OR & \lr{or \$t0, \$s0, \$s1} \\
+% \hline
+% slt & \lr{Set Less Than} & \lr{slt \$t0, \$s0, \$s1} \\
+% \hline
+lw & \lr{Load Word} & \lr{lw \$t0, 4(\$s0)} \\
+\hline
+% sw & \lr{Store Word} & \lr{sw \$t0, 4(\$s0)} \\
+% \hline
+% beqz & \lr{Branch If Equal Zero} & \lr{beq \$s0, \$s1, label} \\
+% \hline
+% j & Jump & \lr{j label} \\
+% \hline
+syscall & \lr{Triggers a System Call} & \lr{syscall} \\
+\hline
+% jr & Jump Register & \lr{jr \$s0} \\
+% \hline
+\end{tabular}
+\end{table}
+\colorbox{green}{پاسخ:}
+\normalfont
+
+{این کد یک برنامه MIPS است که میانگین اعداد موجود در یک آرایه را محاسبه می‌کند. این برنامه ابتدا آرایه ای با ۵ عنصر ایجاد می‌کند و سپس مقدار اندازه آرایه را در متغیر arraySize ذخیره می‌کند. سپس در قسمت main، آدرس ابتدایی آرایه در \$t0 قرار می‌گیرد و اندازه آرایه در \$t1 قرار می‌گیرد. سپس یک شمارنده به نام counter در \$t2 و یک متغیر جمع در \$t3 ایجاد می‌شوند. در ادامه، یک حلقه به نام loop ایجاد می‌شود که اعداد آرایه را یکی یکی بررسی می‌کند و با هر بار بررسی، شمارنده یکی افزایش پیدا می‌کند و مقدار آن عضو را به مجموع اضافه می‌کند. در پایان حلقه، میانگین با تقسیم مجموع بر اندازه آرایه محاسبه می‌شود و نتیجه در \$a0 قرار داده شده و با استفاده از سرویس سیستمی ۱ چاپ می‌شود. در نهایت، با استفاده از سرویس سیستمی ۱۰، برنامه پایان می‌یابد.}
+
+\begin{latin}
+\begin{listing}[H]
+    \inputminted[linenos=true]{asm}{sources/Average.mips}
+    \caption{Average}
+    \label{Average}
+\end{listing}
+\end{latin}
+
+
+\section{محاسبه عبارات بولی}
+{به زبان MIPS Assembly برای هر مورد از عبارات زیر کدی بنویسید که کاربر با مقدار دادن به پارامتر های \lr{a, b, c, ...} بتواند پاسخ عبارت را محاسبه کند.}\\
+\bf {توجه :}
+\normalfont
+\begin{enumerate}
+    \item {ورودی که شامل مقادیر متناظر هر پارامتر است باید در قسمت داده ها در کد تعریف شود.}\\\lr{(.data segment)}
+    \item {لطفاً عبارات را بدون تغییر پیاده سازی کنید. (عبارات را ساده نکنید.)}
+    \item {منظور از علامت $\oplus$ همان طور که در درس مدارهای منطقی و ریاضیات گسسته خواندید XOR است،  علامت $\lor$ به معنای OR منطقی، $\land$ به معنای AND منطقی و علامت $\lnot$ به معنای NOT منطقی است.}
+    \item {خروجی برنامه باید پاسخ متناظر با ورودی های پارامتر ها را در کنسول چاپ کند.}
+\end{enumerate}
+%1 
+\begin{table}[H]
+\centering
+\caption{دستورات مجاز برای استفاده در محاسبه عبارات بولی}
+\label{tab:MIPS-Instructions-for-Logical-Expression}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Instruction} & \textbf{Description} & \textbf{Example} \\
+\hline
+add & Add & \lr{add \$t0, \$s0, \$s1} \\
+\hline
+addi & \lr{Add With Immediate}& \lr{addi \$t0, \$s0, imm} \\
+\hline
+% la & \lr{Load Address} & \lr{la \$t, label	} \\
+% \hline
+% li & \lr{Load Immediate} & \lr{li \$t, imm} \\
+% \hline
+% sub & Subtract & \lr{sub \$t0, \$s0, \$s1} \\
+% \hline
+and & \lr{Bitwise AND} & \lr{and \$t0, \$s0, \$s1} \\
+\hline
+% div & \lr{Divide (with overflow)} & \lr{div \$t0, \$s1, \$s0} \\
+% \hline
+% move & \lr{Move Value} & \lr{move \$t0, \$s0} \\
+% \hline
+% bgt & \lr{Branch on Greater Than} & \lr{bgt \$t1, \$t0, Label} \\
+% \hline
+% bge & \lr{Branch on Greater Than Equal} & \lr{bge \$t1, \$t0, Label} \\
+% \hline
+% blt & \lr{Branch on Less Than} & \lr{blt \$t1, \$t0, Label} \\
+% \hline
+% mflo & \lr{Move From LO of the Register} & \lr{mflo \$a0} \\
+% \hline
+or & \lr{Bitwise OR} & \lr{or \$t0, \$s0, \$s1} \\
+\hline
+nor & NOR & \lr{nor \$t0, \$s0, \$s1} \\
+\hline
+xor & XOR & \lr{xor \$t0, \$s0, \$s1} \\
+\hline
+% slt & \lr{Set Less Than} & \lr{slt \$t0, \$s0, \$s1} \\
+% \hline
+lw & \lr{Load Word} & \lr{lw \$t0, 4(\$s0)} \\
+\hline
+% sw & \lr{Store Word} & \lr{sw \$t0, 4(\$s0)} \\
+% \hline
+% beqz & \lr{Branch If Equal Zero} & \lr{beq \$s0, \$s1, label} \\
+% \hline
+% j & Jump & \lr{j label} \\
+% \hline
+syscall & \lr{Triggers a System Call} & \lr{syscall} \\
+\hline
+% jr & Jump Register & \lr{jr \$s0} \\
+% \hline
+\end{tabular}
+\end{table}
+\subsection{عبارت اول}
+\grayBox{$(a \land b) \oplus (c \land d) \lor (e \land f)$}\\
+\colorbox{green}{پاسخ:}
+\normalfont
+
+{از دستور addi برای بارگذاری مقادیر 1 و 10 در رجیستر \$v0 استفاده می‌شود، که برای کد فراخوانی سیستم برای چاپ یک عدد صحیح و خروج از برنامه مورد استفاده قرار می‌گیرد. برای خروجی دادن به ترمینال، از دستور add برای کپی کردن محتویات \$t4 به \$a0 استفاده می‌شود که آرگومان دستور فراخوانی سیستم برای چاپ یک عدد صحیح را نگه می‌دارد. مقادیر ورودی از بخش داده با استفاده از دستور lw بارگذاری می‌شوند و عبارت با استفاده از دستورات ،and xor و or محاسبه می‌شود. در نهایت، برنامه با استفاده از دستورات addi و syscall خاتمه می‌یابد.}
+\begin{latin}
+\begin{listing}[H]
+    \inputminted[linenos=true]{asm}{sources/Logical_Expression_One.mips}
+    \caption{Logical Expression One}
+    \label{Logical-Expression-One}
+\end{listing}
+\end{latin}
+
+%2
+\subsection{عبارت دوم}
+\grayBox{$(a \lor b) \land \lnot(c \lor d)$}\\
+\colorbox{green}{پاسخ:}
+\normalfont
+
+{این برنامه برای محاسبه عبارت منطقی "$(a \lor b) \land \lnot(c \lor d)$" به زبان MIPS Assembly نوشته شده است. در ابتدا، مقادیر ورودی برنامه در بخش .data ذخیره شده اند. سپس در بخش .text، محاسبات مورد نیاز برای محاسبه عبارت منطقی انجام می‌شوند. در این برنامه، ابتدا مقادیر ورودی از بخش .data با استفاده از دستور lw بارگذاری می‌شوند. سپس عملگر or برای محاسبه عبارت "$(a \lor b)$" استفاده می‌شود. در مرحله بعد، عملگر or دوم برای محاسبه عبارت "$(c \lor d)$" به کار می‌رود و سپس عملگر nor برای محاسبه عکس این عبارت استفاده می‌شود. در نهایت، با استفاده از عملگر and، نتیجه نهایی محاسبه می‌شود. برای چاپ نتیجه نهایی، از دستورات add، addi و syscall استفاده می‌شود. با استفاده از دستور add، مقدار نتیجه در \$a0 قرار داده می‌شود. سپس با استفاده از دستور addi، کد سیستمی را برای چاپ نتیجه به 1 تنظیم می‌کنیم. در نهایت با فراخوانی دستور syscall، نتیجه نهایی بر روی ترمینال چاپ می‌شود. در انتها، با استفاده از دستورات addi و syscall برنامه به اتمام می‌رسد.}
+\begin{latin}
+\begin{listing}[H]
+    \inputminted[linenos=true]{asm}{sources/Logical_Expression_Two.mips}
+    \caption{Logical Expression Two}
+    \label{Logical-Expression-Two}
+\end{listing}
+\end{latin}
+
+%3
+\subsection{عبارت سوم}
+\grayBox{$\lnot(a \oplus b) \land (c \oplus d)$}\\
+\colorbox{green}{پاسخ:}
+\normalfont
+
+{ ابتدا مقادیری که در بخش داده‌ای تعریف شده‌اند به متغیرهای مختلفی که در رجیسترهای MIPS قرار می‌گیرند، لود می‌شوند. سپس با استفاده از دستور XOR دو مقدار a و b با هم XOR می‌شوند و نتیجه در رجیستر \$t2 ذخیره می‌شود. سپس با استفاده از دستور NOR، بیت‌های مقدار \$t2 اگر یک باشند به صفر تبدیل شده و اگر صفر باشند به یک تبدیل (not) می‌شوند. سپس با دستور ADDI یک به نتیجه برگردانده شده توسط دستور NOR اضافه شده و در نهایت با استفاده از دستور ANDI، بیت‌های این مقدار با مقدار 1 آند شده و به این صورت بیت‌های آن نوشته می‌شوند. این عمل برای محاسبه $\lnot(a \oplus b)$ استفاده می‌شود. در مرحله بعد، دو مقدار c و d با دستور XOR با یکدیگر XOR می‌شوند و نتیجه در رجیستر \$t6 ذخیره می‌شود. در نهایت، با استفاده از دستور AND، نتیجه‌ی $\lnot(a \oplus b)$ را با مقدار $(c \oplus d)$ عمل AND می‌شود و نتیجه در رجیستر \$t7 ذخیره می‌شود. سپس با استفاده از دستور ADD، مقدار \$t7 به \$a0 منتقل شده و سپس با استفاده از دستور ADDI، کد سیستمی به 1 تغییر داده می‌شود تا برنامه عدد موجود در \$a0 را به صفحه نمایش بفرستد. در نهایت با استفاده از دستور ADDI و مقدار 10 به کد سیستمی دیگر، یعنی خروج از برنامه تغییر داده می‌شود تا برنامه پس از نمایش عدد مورد نظر، خاتمه یابد.}
+\begin{latin}
+\begin{listing}[H]
+    \inputminted[linenos=true]{asm}{sources/Logical_Expression_Three.mips}
+    \caption{Logical Expression Three}
+    \label{Logical-Expression-Three}
+\end{listing}
+\end{latin}

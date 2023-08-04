@@ -1,0 +1,55 @@
+.data
+    a: .word 4   # length of side a
+    b: .word 3   # length of side b
+    c: .word 5   # length of side c
+    result: .asciiz "The triangle is valid\n"
+    error: .asciiz "The triangle is invalid\n"
+
+.text
+    main:
+        la $t0, a  # load address of a into $t0
+        lw $t0, ($t0)  # load value of a into $t0
+
+        la $t1, b  # load address of b into $t1
+        lw $t1, ($t1)  # load value of b into $t1
+
+        la $t2, c  # load address of c into $t2
+        lw $t2, ($t2)  # load value of c into $t2
+
+        # check inequality of triangle
+        add $t3, $t1, $t2  # t3 = b + c
+        slt $t4, $t0, $t3  # if a < b + c, $t4 = 1, else $t4 = 0
+
+        add $t3, $t0, $t2  # t3 = a + c
+        slt $t5, $t1, $t3  # if b < a + c, $t5 = 1, else $t5 = 0
+
+        add $t3, $t0, $t1  # t3 = a + b
+        slt $t6, $t2, $t3  # if c < a + b, $t6 = 1, else $t6 = 0
+
+        and $t7, $t4, $t5  # if a < b + c and b < a + c, $t7 = 1, else $t7 = 0
+        and $t7, $t7, $t6  # if a < b + c and b < a + c and c < a + b, $t7 = 1, else $t7 = 0
+
+        beqz $t7, invalid  # if $t7 = 0, branch to invalid
+
+        # if $t7 = 1, branch to valid
+        j valid
+
+    valid:
+        # print "The triangle is valid"
+        la $a0, result
+        li $v0, 4
+        syscall
+
+        # exit program
+        li $v0, 10
+        syscall
+
+    invalid:
+        # print "The triangle is invalid"
+        la $a0, error
+        li $v0, 4
+        syscall
+
+        # exit program
+        li $v0, 10
+        syscall

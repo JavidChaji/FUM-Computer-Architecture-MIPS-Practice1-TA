@@ -1,0 +1,35 @@
+# This section is for loading the input values
+.data
+a: .word 0
+b: .word 1
+c: .word 1
+d: .word 0
+
+.text
+main:
+    # Load input values
+    lw $t0, a
+    lw $t1, b
+    lw $t2, c
+    lw $t3, d
+    
+    # Compute (a ∨ b) using the or instruction
+    or $t4, $t0, $t1
+    
+    # Compute (c ∨ d) using the or instruction
+    or $t5, $t2, $t3
+    
+    # Compute the negation of (c ∨ d) using the nor instruction
+    nor $t6, $t5, $zero
+    
+    # Compute the final result using the and instruction
+    and $t7, $t4, $t6
+    
+    # Output the result to the terminal
+    add $a0, $t7, $zero
+    addi $v0, $zero, 1
+    syscall
+    
+    # Exit the program
+    addi $v0, $zero, 10
+    syscall

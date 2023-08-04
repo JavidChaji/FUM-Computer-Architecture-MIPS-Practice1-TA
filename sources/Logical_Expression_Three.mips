@@ -1,0 +1,32 @@
+.data
+a: .word 0x8       # initialize a to 1000 binary
+b: .word 0x3       # initialize b to 0011 binary
+c: .word 0x5       # initialize c to 0101 binary
+d: .word 0xA       # initialize d to 1010 binary
+
+.text
+main:
+    lw $t0, a         # load a into $t0
+    lw $t1, b         # load b into $t1
+    xor $t2, $t0, $t1 # compute a xor b and store the result in $t2
+
+    # negate the result of a xor b
+    nor $t3, $t2, $zero  # invert the bits of $t2
+    addi $t3, $t3, 1    # add 1 to $t3
+    andi $t3, $t3, 0x1  # set $t3 to the least significant bit of $t3
+
+    lw $t4, c         # load c into $t4
+    lw $t5, d         # load d into $t5
+    xor $t6, $t4, $t5 # compute c xor d and store the result in $t6
+
+    # compute the final result
+    and $t7, $t3, $t6
+
+    # print the result to the terminal
+    add $a0, $t7, $zero  # move the result to $a0, which holds the argument for the system call
+    addi $v0, $zero, 1  # set the system call code to print an integer
+    syscall              # print the result to the terminal
+
+    # exit the program
+    addi $v0, $zero, 10 # set the system call code to exit the program
+    syscall              # exit the program
