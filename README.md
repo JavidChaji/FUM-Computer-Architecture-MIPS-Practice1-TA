@@ -32,9 +32,9 @@ Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
 
 
 <!-- Stars -->
-[stars-shield]: https://img.shields.io/github/stars/javidchaji/FUM-Web-Programming-Hotel-Search-UI.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/javidchaji/FUM-Computer-Architecture-MIPS-Practice1-TA.svg?style=for-the-badge
 
-[stars-url]: https://github.com/javidchaji/FUM-Web-Programming-Hotel-Search-UI/stargazers
+[stars-url]: https://github.com/javidchaji/FUM-Computer-Architecture-MIPS-Practice1-TA/stargazers
 
 
 <!-- Issues -->
