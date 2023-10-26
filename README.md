@@ -56,7 +56,8 @@ Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+Technologies and Tools Utilized in this Project
+
 
 * [![LaTeX][LaTeX-Shield]][LaTeX-url]
 
