@@ -9,7 +9,7 @@
 
 
 
-[![LinkedIn][linkedin-shield]][javid-linkedin-url]
+[![LinkedIn][linkedin-shield]][javid-linkedin-URL]
 
 # computer-archtecture-mips-practice-one-answer
 
@@ -59,7 +59,7 @@ Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
 Technologies and Tools Utilized in this Project
 
 
-* [![LaTeX][LaTeX-Shield]][LaTeX-url]
+* [![LaTeX][LaTeX-Shield]][LaTeX-URL]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,13 +169,12 @@ Use this space to list resources you find helpful and would like to give credit 
 <!-- Linkedin -->
 [linkedin-shield]: https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white
 
-[javid-linkedin-url]: https://linkedin.com/in/javidchaji
+[javid-linkedin-URL]: https://linkedin.com/in/javidchaji
 
 
-
-
-
+<!-- LaTeX -->
 [LaTeX-Shield]: https://img.shields.io/badge/LaTeX-47A141?style=for-the-badge&logo=LaTeX&logoColor=white
-[LaTeX-url]: https://www.latex-project.org/
+
+[LaTeX-URL]: https://www.latex-project.org/
 
 
