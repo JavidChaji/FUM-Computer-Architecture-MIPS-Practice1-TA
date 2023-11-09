@@ -1,22 +1,16 @@
 <a name="readme-top"></a>
 
-
 [![Contributors][Contributors-Shield]][Contributors-URL]
 [![Forks][Forks-Shield]][Forks-URL]
 [![Stargazers][Stars-Shield]][Stars-URL]
 [![Issues][Issues-Shield]][Issues-URL]
 [![MIT License][License-Shield]][License-URL]
 
-
-
 [![LinkedIn][LinkedIn-Shield]][Javid-LinkedIn-URL]
 
 # computer-archtecture-mips-practice-one-answer
 
 Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
-
-
-
 
 
 
@@ -48,12 +42,6 @@ Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
 
 
 
-
-
-
-
-
-
 ### Built With
 
 Technologies and Tools Utilized in this Project
@@ -62,13 +50,6 @@ Technologies and Tools Utilized in this Project
 * [![LaTeX][LaTeX-Shield]][LaTeX-URL]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
-
-
 
 
 
@@ -87,7 +68,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 
@@ -111,7 +91,6 @@ Project Link: [https://github.com/JavidChaji/FUM-Computer-Architecture-MIPS-Prac
 
 
 
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
@@ -127,9 +106,6 @@ Use this space to list resources you find helpful and would like to give credit 
 * [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 
 
 
