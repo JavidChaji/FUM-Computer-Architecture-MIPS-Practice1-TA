@@ -42,10 +42,14 @@ Ferdowsi University of Mashhad Computer Architecture MIPS Practice1 TA
 
 
 
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+
+
 ### Built With
 
 Technologies and Tools Utilized in this Project
-
 
 * [![LaTeX][LaTeX-Shield]][LaTeX-URL]
 
@@ -117,6 +121,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [Contributors-Shield]: https://img.shields.io/github/contributors/javidchaji/FUM-Computer-Architecture-MIPS-Practice1-TA.svg?style=for-the-badge
 
 [Contributors-URL]: https://github.com/javidchaji/FUM-Computer-Architecture-MIPS-Practice1-TA/graphs/contributors
+
 
 <!-- Forks -->
 [Forks-Shield]: https://img.shields.io/github/forks/javidchaji/FUM-Computer-Architecture-MIPS-Practice1-TA.svg?style=for-the-badge
